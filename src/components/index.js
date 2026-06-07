@@ -1,9 +1,9 @@
 import Select from "./Select";
-import Header from "./header/Header";      // ✅ lowercase 'header'
-import Footer from "./footer/Footer";      // ✅ lowercase 'footer'
+import Header from "./header/Header";
+import Footer from "./footer/Footer";
 import Container from "./container/Container";
-import Logo from "./Logo";
-import LogoutBtn from "./header/LogoutBtn"; // ✅ lowercase 'header'
+import Logo from "./logo";              // ✅ lowercase
+import LogoutBtn from "./header/LogoutBtn";
 import RTE from "./RTE";
 import Signup from "./Signup";
 import Login from "./Login";
