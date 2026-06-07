@@ -2,7 +2,7 @@ import Select from "./Select";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Container from "./container/Container";
-import Logo from "./logo";              // ✅ lowercase
+import Logo from "./logo.jsx";              // ✅ lowercase
 import LogoutBtn from "./header/LogoutBtn";
 import RTE from "./RTE";
 import Signup from "./Signup";
