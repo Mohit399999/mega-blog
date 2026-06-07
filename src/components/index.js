@@ -1,9 +1,9 @@
 import Select from "./Select";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import Header from "./header/Header";      // ✅ lowercase 'header'
+import Footer from "./footer/Footer";      // ✅ lowercase 'footer'
 import Container from "./container/Container";
 import Logo from "./Logo";
-import LogoutBtn from "./Header/LogoutBtn";
+import LogoutBtn from "./header/LogoutBtn"; // ✅ lowercase 'header'
 import RTE from "./RTE";
 import Signup from "./Signup";
 import Login from "./Login";
@@ -12,6 +12,7 @@ import PostForm from "./postform/PostForm";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import Input from "./Input";
+
 export {
     Header,
     Footer,
