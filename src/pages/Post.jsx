@@ -13,6 +13,12 @@ export default function Post() {
     const userData = useSelector((state) => state.auth.userData);
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
+    useEffect(() => {
+    if (post) {
+        console.log("featuredImage from DB:", post.featuredImage);
+        console.log("Preview URL:", appwriteService.getFilePreview(post.featuredImage));
+    }
+}, [post]);
 
     useEffect(() => {
         if (slug) {
@@ -37,10 +43,10 @@ export default function Post() {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
+    src={appwriteService.getFilePreview(post.featuredImage)}
+    alt={post.title}
+    className="rounded-xl max-h-96 object-contain"  // ✅ added max-h-96 and object-contain
+/>
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">

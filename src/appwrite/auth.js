@@ -6,13 +6,15 @@ export class AuthService {
     client = new Client();
     account;
 
-    constructor() {
-        this.client
-            .setEndpoint("https://cloud.appwrite.io/v1")
-            .setProject("671dbedb002ffaf2d612")
-        this.account = new Account(this.client);
-            
-    }
+    
+
+constructor() {
+    this.client
+        .setEndpoint(conf.appwriteURL)
+        .setProject(conf.appwriteProjectId);
+
+    this.account = new Account(this.client);
+}
 
     async createAccount({email, password, name}) {
         // eslint-disable-next-line no-useless-catch
