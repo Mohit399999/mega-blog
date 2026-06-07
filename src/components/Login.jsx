@@ -1,17 +1,15 @@
 import authService from "../appwrite/auth"
-import {Link, useNavigate} from "react-router-dom"
-import React, {useState} from 'react'
-import Button from "./Button"
-import Input from './Input'
+import { Link, useNavigate } from "react-router-dom"
+import React, { useState } from 'react'
 import Logo from "./logo"
-import {useForm} from "react-hook-form"
-import {useDispatch} from "react-redux"
-import {login as authLogin} from "../store/authSlice"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
+import { login as authLogin } from "../store/authSlice"
 
 function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {register, handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
 
     const login = async (data) => {
@@ -20,7 +18,7 @@ function Login() {
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin({userData}))
+                if (userData) dispatch(authLogin(userData))  // ✅ fixed: removed {userData} wrapper
                 navigate("/")
             }
         } catch (error) {
@@ -29,49 +27,66 @@ function Login() {
     }
 
     return (
-        <div className="flex items-center justify-center w-full">
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
-                <div className="mb-2 flex justify-center">
-                    <span className="inline-block w-full max-w-[100px]">
+        <div className="w-full max-w-md mx-auto">
+            <div className="bg-white rounded-2xl border border-gray-200 p-10 shadow-sm">
+                {/* Logo */}
+                <div className="flex justify-center mb-6">
+                    <span className="inline-block w-[80px]">
                         <Logo width="100%" />
                     </span>
                 </div>
-                <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
-                <p className="mt-2 text-center text-base text-black/60">
-                    Don&apos;t have any account?&nbsp;
+
+                {/* Heading */}
+                <h2 className="text-2xl font-semibold text-gray-900 text-center tracking-tight">
+                    Sign in to your account
+                </h2>
+                <p className="mt-2 text-sm text-gray-500 text-center">
+                    Don't have an account?{' '}
                     <Link
                         to="/signup"
-                        className="font-medium text-primary transition-all duration-200 hover:underline"
+                        className="text-gray-900 font-medium hover:underline underline-offset-2"
                     >
-                        Sign Up
+                        Sign up
                     </Link>
                 </p>
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(login)} className="mt-8">
-                    <div className="space-y-5">
-                        <Input
-                            label="Email : "
-                            placeholder="Email Address"
+
+                {/* Error */}
+                {error && (
+                    <div className="mt-4 px-4 py-3 bg-red-50 border border-red-100 rounded-xl">
+                        <p className="text-sm text-red-600 text-center">{error}</p>
+                    </div>
+                )}
+
+                {/* Form */}
+                <form onSubmit={handleSubmit(login)} className="mt-6 space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+                        <input
+                            placeholder="Enter your email"
                             type="email"
-                            {...register("email", {
-                                required: true,
-                                
-                            })}
+                            className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                            {...register("email", { required: true })}
                         />
-                        <Input
-                            label="Password : "
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+                        <input
+                            placeholder="Enter your password"
                             type="password"
-                            placeholder="Password"
+                            className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                             {...register("password", { required: true })}
                         />
-                        <Button type="submit" className="w-full">
-                            Sign in{" "}
-                        </Button>
                     </div>
+                    <button
+                        type="submit"
+                        className="w-full py-2.5 mt-2 bg-gray-900 text-white text-sm font-medium rounded-full hover:bg-gray-700 transition-all"
+                    >
+                        Sign in
+                    </button>
                 </form>
             </div>
         </div>
-    );
+    )
 }
 
 export default Login
